@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="pragma" content="no-cache" />
+  <meta http-equiv="expires" content="0" />
+  <title>Кулинарный справочник</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      height: 100vh;
+    }
+
+    .button-container {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    .button {
+      padding: 10px 20px;
+      font-size: 24px;
+      background-color: #54a5d1;
+      border: none;
+      color: black;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 10px;
+    }
+
+    h1 {
+      font-size: 36px;
+    }
+
+    .information {
+      margin-top: 20px;
+    }
+  </style>
+  <script>
+    let prokot;
+    window.onload = function () {
+      let dish1 = document.querySelector(".dish1");
+      dish1.onclick = LoadRecipe;
+      let dish2 = document.querySelector(".dish2");
+      dish2.onclick = LoadRecipe;
+      let dish3 = document.querySelector(".dish3");
+      dish3.onclick = LoadRecipe;
+      info = document.querySelector(".information");
+    }
+    async function LoadRecipe() {
+      let url = "";
+      if (this.classList.contains("dish1")) url = 'recipe1.html';
+      else if (this.classList.contains("dish2")) url = 'recipe2.html';
+      else if (this.classList.contains("dish3")) url = 'recipe3.html';
+      let response = await fetch(url);
+      if (response.ok) {
+        let html = await response.text();
+        info.innerHTML = html;
+      } else {
+        alert("Ошибка HTTP: " + response.status);
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <h1>
+    Кулинарный справочник
+  </h1>
+  <div class="button-container">
+    <div class="button dish1">Паста карбонара</div>
+    <div class="button dish2">Греческий салат</div>
+    <div class="button dish3">Борщ</div>
+  </div>
+  <div class="information"></div>
+</body>
+
+</html>
